@@ -2,38 +2,138 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import styles from './IndexPage.less';
-import { Tabs } from 'antd-mobile';
+import { TabBar } from 'antd-mobile';
 
-const TabPane = Tabs.TabPane;
+class IndexPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTab: 'blueTab',
+      hidden: false,
+    };
+  }
 
-function IndexPage() {
-  return (
-    <div className={styles.normal}>
-      <Tabs defaultActiveKey="1" onChange={(key) => { console.log(key) }}>
-        <TabPane tab="选项卡一" key="1">
-          <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center', height: 100,
-          }}>
-             选项卡一内容
-          </div>
-        </TabPane>
-        <TabPane tab="选项卡二" key="2">
-          <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center', height: 100,
-          }}>
-             选项卡二内容
-          </div>
-        </TabPane>
-        <TabPane tab="选项卡三" key="3">
-          <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center', height: 100,
-          }}>
-             选项卡三内容
-          </div>
-        </TabPane>
-      </Tabs>
-    </div>
-  );
+  renderContent(pageText) {
+    return (
+      <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
+        <div style={{ paddingTop: 60 }}>clicked “{pageText}” tab， show “{pageText}” information</div>
+        <a style={{ display: 'block', marginTop: 40, marginBottom: 600, color: '#108ee9' }}
+           onClick={(e) => {
+             e.preventDefault();
+             this.setState({
+               hidden: !this.state.hidden,
+             });
+           }}
+        >
+          click to show/hide tab-bar
+        </a>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <TabBar
+        unselectedTintColor="#949494"
+        tintColor="#33A3F4"
+        barTintColor="white"
+        hidden={this.state.hidden}
+      >
+        <TabBar.Item
+          title="首页"
+          key="Index"
+          icon={<div style={{
+            width: '22px',
+            height: '22px',
+            background: 'url(http://admin.gemuwenhua.com/content/image/svg/首页.svg) center center /  21px 21px no-repeat' }}
+          />
+          }
+          selectedIcon={<div style={{
+            width: '22px',
+            height: '22px',
+            background: 'url(http://admin.gemuwenhua.com/content/image/check_svg/首页.svg) center center /  21px 21px no-repeat' }}
+          />
+          }
+          selected={this.state.selectedTab === 'blueTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'blueTab',
+            });
+          }}
+          data-seed="logId"
+        >
+          {this.renderContent('Index')}
+        </TabBar.Item>
+        <TabBar.Item
+          icon={
+            <div style={{
+              width: '22px',
+              height: '22px',
+              background: 'url(http://admin.gemuwenhua.com/content/image/svg/预约.svg) center center /  21px 21px no-repeat' }}
+            />
+          }
+          selectedIcon={
+            <div style={{
+              width: '22px',
+              height: '22px',
+              background: 'url(http://admin.gemuwenhua.com/content/image/check_svg/预约.svg) center center /  21px 21px no-repeat' }}
+            />
+          }
+          title="预约"
+          key="cooking"
+          selected={this.state.selectedTab === 'redTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'redTab',
+            });
+          }}
+          data-seed="logId1"
+        >
+          {this.renderContent('预约')}
+        </TabBar.Item>
+        <TabBar.Item
+          icon={
+            <div style={{
+              width: '22px',
+              height: '22px',
+              background: 'url(http://admin.gemuwenhua.com/content/image/svg/订单.svg) center center /  21px 21px no-repeat' }}
+            />
+          }
+          selectedIcon={
+            <div style={{
+              width: '22px',
+              height: '22px',
+              background: 'url(http://admin.gemuwenhua.com/content/image/check_svg/订单.svg) center center /  21px 21px no-repeat' }}
+            />
+          }
+          title="订单"
+          key="Order"
+          selected={this.state.selectedTab === 'greenTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'greenTab',
+            });
+          }}
+        >
+          {this.renderContent('Order')}
+        </TabBar.Item>
+        <TabBar.Item
+          icon={{ uri: 'http://admin.gemuwenhua.com/content/image/svg/我的.svg' }}
+          selectedIcon={{ uri: 'http://admin.gemuwenhua.com/content/image/check_svg/我的.svg' }}
+          title="我的"
+          key="my"
+          selected={this.state.selectedTab === 'yellowTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'yellowTab',
+            });
+          }}
+        >
+          {this.renderContent('My')}
+        </TabBar.Item>
+      </TabBar>
+    );
+  }
 }
 
 IndexPage.propTypes = {
