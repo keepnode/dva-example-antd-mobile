@@ -3,34 +3,45 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import styles from './IndexPage.less';
 import { TabBar } from 'antd-mobile';
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet';
+import Ad from '../components/ad';
 
 class IndexPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'blueTab',
+      selectedTab: 'index',
       hidden: false,
       title: '首页'
     };
   }
 
   renderContent(pageText) {
-    return (
-      <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
-        <div style={{ paddingTop: 60 }}>clicked “{pageText}” tab， show “{pageText}” information</div>
-        <a style={{ display: 'block', marginTop: 40, marginBottom: 600, color: '#108ee9' }}
-           onClick={(e) => {
-             e.preventDefault();
-             this.setState({
-               hidden: !this.state.hidden,
-             });
-           }}
-        >
-          click to show/hide tab-bar
-        </a>
-      </div>
-    );
+    let result=null
+    console.log('pageText', pageText)
+    switch (pageText){
+      case 'Index':
+        result=(<Ad />)
+        break
+      default:
+        result=(
+          <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
+            <div style={{ paddingTop: 60 }}>clicked “{pageText}” tab， show “{pageText}” information</div>
+            <a style={{ display: 'block', marginTop: 40, marginBottom: 600, color: '#108ee9' }}
+               onClick={(e) => {
+                 e.preventDefault();
+                 this.setState({
+                   hidden: !this.state.hidden,
+                 });
+               }}
+            >
+              click to show/hide tab-bar
+            </a>
+          </div>
+        );
+        break
+    }
+    return result
   }
 
   render() {
@@ -60,10 +71,10 @@ class IndexPage extends React.Component {
             background: 'url(http://admin.gemuwenhua.com/content/image/check_svg/首页.svg) center center /  21px 21px no-repeat' }}
           />
           }
-          selected={this.state.selectedTab === 'blueTab'}
+          selected={this.state.selectedTab === 'Index'}
           onPress={() => {
             this.setState({
-              selectedTab: 'blueTab',
+              selectedTab: 'Index',
               title: '首页'
             });
           }}
