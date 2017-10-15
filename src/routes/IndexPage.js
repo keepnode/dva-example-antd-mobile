@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import styles from './IndexPage.less';
 import { TabBar } from 'antd-mobile';
+import { Helmet } from 'react-helmet'
 
 class IndexPage extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class IndexPage extends React.Component {
     this.state = {
       selectedTab: 'blueTab',
       hidden: false,
+      title: '首页'
     };
   }
 
@@ -33,6 +35,10 @@ class IndexPage extends React.Component {
 
   render() {
     return (
+      <div className="application">
+        <Helmet>
+          <title>{this.state.title}</title>
+        </Helmet>
       <TabBar
         unselectedTintColor="#949494"
         tintColor="#33A3F4"
@@ -58,6 +64,7 @@ class IndexPage extends React.Component {
           onPress={() => {
             this.setState({
               selectedTab: 'blueTab',
+              title: '首页'
             });
           }}
           data-seed="logId"
@@ -85,6 +92,7 @@ class IndexPage extends React.Component {
           onPress={() => {
             this.setState({
               selectedTab: 'redTab',
+              title: '预约'
             });
           }}
           data-seed="logId1"
@@ -112,6 +120,7 @@ class IndexPage extends React.Component {
           onPress={() => {
             this.setState({
               selectedTab: 'greenTab',
+              title: '订单'
             });
           }}
         >
@@ -126,17 +135,20 @@ class IndexPage extends React.Component {
           onPress={() => {
             this.setState({
               selectedTab: 'yellowTab',
+              title: '我的'
             });
           }}
         >
           {this.renderContent('My')}
         </TabBar.Item>
       </TabBar>
+      </div>
     );
   }
 }
 
 IndexPage.propTypes = {
+  title: PropTypes.string
 };
 
 export default connect()(IndexPage);
