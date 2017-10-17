@@ -4,7 +4,7 @@ import { Link } from 'dva/router';
 import styles from './IndexPage.less';
 import { TabBar } from 'antd-mobile';
 import { Helmet } from 'react-helmet';
-import Ad from '../components/ad';
+import Index from '../components/Index';
 
 class IndexPage extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class IndexPage extends React.Component {
     console.log('pageText', pageText)
     switch (pageText){
       case 'Index':
-        result=(<Ad />)
+        result=(<Index />)
         break
       default:
         result=(
